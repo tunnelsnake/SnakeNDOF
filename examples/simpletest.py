@@ -62,6 +62,11 @@ print('Accelerometer ID:   0x{0:02X}'.format(accel))
 print('Magnetometer ID:    0x{0:02X}'.format(mag))
 print('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 
+
+f = open("Data_Log.csv", "a")
+
+
+
 print('Reading BNO055 data, press Ctrl-C to quit...')
 while True:
     # Read the Euler angles for heading, roll, pitch (all in degrees).
@@ -69,8 +74,8 @@ while True:
     # Read the calibration status, 0=uncalibrated and 3=fully calibrated.
     sys, gyro, accel, mag = bno.get_calibration_status()
     # Print everything out.
-    print('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(
-          heading, roll, pitch, sys, gyro, accel, mag))
+    #print('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(
+     #     heading, roll, pitch, sys, gyro, accel, mag))
     # Other values you can optionally read:
     # Orientation as a quaternion:
     #x,y,z,w = bno.read_quaterion()
@@ -80,8 +85,8 @@ while True:
     #x,y,z = bno.read_magnetometer()
     # Gyroscope data (in degrees per second):
     #x,y,z = bno.read_gyroscope()
-    # Accelerometer data (in meters per second squared):
-    #x,y,z = bno.read_accelerometer()
+    #Accelerometer data (in meters per second squared):
+    accel_x,accel_y,accel_z = bno.read_accelerometer()
     # Linear acceleration data (i.e. acceleration from movement, not gravity--
     # returned in meters per second squared):
     #x,y,z = bno.read_linear_acceleration()
@@ -89,4 +94,8 @@ while True:
     # in meters per second squared):
     #x,y,z = bno.read_gravity()
     # Sleep for a second until the next reading.
+
+    t = time.asctime()
+    t = t[11:19]
+    f.write(t + "," + heading + "," + roll + "," + pitch + "," + accel_x + "," + accel_y + "," + accel_z + "\n")
     time.sleep(1)
