@@ -24,6 +24,7 @@
 import logging
 import sys
 import time
+import os
 
 from Adafruit_BNO055 import BNO055
 
@@ -66,6 +67,10 @@ print('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 f = open("Data_Log.csv", "a")
 
 print("\n")
+input("Press a Key to Begin Calibration...\n")
+
+os.system('cls' if os.name == 'nt' else 'clear')
+
 print("Starting Calibration... \n")
 print("Place Sensor on Table for Gyroscope Calibration \n")
 
@@ -104,7 +109,10 @@ while True:
     else:
         time.sleep(.25)
 
-input("Press a Key to Begin Data Acquisition")
+input("Press a Key to Begin Data Acquisition...")
+
+os.system('cls' if os.name == 'nt' else 'clear')
+
 print('Reading BNO055 data, press Ctrl-C to quit...')
 while True:
     # Read the Euler angles for heading, roll, pitch (all in degrees).
