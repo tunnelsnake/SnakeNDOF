@@ -114,6 +114,7 @@ input("Press a Key to Begin Data Acquisition...")
 os.system('cls' if os.name == 'nt' else 'clear')
 
 print('Reading BNO055 data, press Ctrl-C to quit...')
+start_time = time.time() * 1000
 while True:
     # Read the Euler angles for heading, roll, pitch (all in degrees).
     heading, roll, pitch = bno.read_euler()
@@ -143,6 +144,6 @@ while True:
 
     #Append data to CSV file
     t = time.asctime()
-    t = t[11:19]
+    t = (time.time() * 1000) - start_time
     f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," +  str(sys) + "," + str(gyro) + "," + str(accel) + "," + str(mag) + "\n")
     time.sleep(.25)
