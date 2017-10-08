@@ -146,4 +146,4 @@ while True:
     t = time.asctime()
     t = (time.time() * 1000) - start_time
     f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," +  str(sys) + "," + str(gyro) + "," + str(accel) + "," + str(mag) + "\n")
-    time.sleep(.25)
+    #time.sleep(.25)
