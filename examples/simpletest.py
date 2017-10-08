@@ -97,5 +97,5 @@ while True:
 
     t = time.asctime()
     t = t[11:19]
-    f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "\n")
-    time.sleep(1)
+    f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," +  str(s) + "," + str(gyro) + "," + str(accel) + "," + str(mag) + "\n")
+    #time.sleep(1)
