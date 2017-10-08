@@ -65,8 +65,46 @@ print('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 
 f = open("Data_Log.csv", "a")
 
+print("\n")
+print("Starting Calibration... \n")
+print("Place Sensor on Table for Gyroscope Calibration \n")
 
+#Gyroscope Calibration
+while True:
+    sys, gyro, accel, mag = bno.get_calibration_status()
+    if gyro == 3:
+        break
+    else:
+        time.sleep(.25)
 
+#Accelerometer Calibration
+print("Gyro Calibration Complete. Accelerometer Calibration Beginning... \n")
+print("Move Sensor at 45 Degree Angles\n")
+while True:
+    sys, gyro, accel, mag = bno.get_calibration_status()
+    if accel == 3:
+        break
+    else:
+        time.sleep(.25)
+
+#Magnetometer Calibration
+print("Accelerometer Calibration Complete. Magnetometer Calibration Beginning... \n")
+while True:
+    sys, gyro, accel, mag = bno.get_calibration_status()
+    if mag == 3:
+        break
+    else:
+        time.sleep(.25)
+
+print("Calibration Complete. Awaiting System Confirmation... \n")
+while True:
+    sys, gyro, accel, mag = bno.get_calibration_status()
+    if sys == 3:
+        break
+    else:
+        time.sleep(.25)
+
+input("Press a Key to Begin Data Acquisition")
 print('Reading BNO055 data, press Ctrl-C to quit...')
 while True:
     # Read the Euler angles for heading, roll, pitch (all in degrees).
@@ -86,7 +124,7 @@ while True:
     # Gyroscope data (in degrees per second):
     #x,y,z = bno.read_gyroscope()
     #Accelerometer data (in meters per second squared):
-    accel_x,accel_y,accel_z = bno.read_accelerometer()
+    accel_x,accel_y,accel_z = bno.read_linear_acceleration()
     # Linear acceleration data (i.e. acceleration from movement, not gravity--
     # returned in meters per second squared):
     #x,y,z = bno.read_linear_acceleration()
@@ -95,7 +133,8 @@ while True:
     #x,y,z = bno.read_gravity()
     # Sleep for a second until the next reading.
 
+    #Append data to CSV file
     t = time.asctime()
     t = t[11:19]
-    f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," +  str(s) + "," + str(gyro) + "," + str(accel) + "," + str(mag) + "\n")
-    #time.sleep(1)
+    f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," +  str(sys) + "," + str(gyro) + "," + str(accel) + "," + str(mag) + "\n")
+    time.sleep(.25)
