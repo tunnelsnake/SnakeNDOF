@@ -28,7 +28,7 @@ class Sendfile():
                 break
 
         f.close()
-        conn.send('')
+        conn.sendall(0x00)
         conn.close()
         print("File Sent Successfully.")
 
