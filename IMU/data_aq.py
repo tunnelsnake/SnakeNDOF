@@ -13,8 +13,6 @@
 #
 # Code Adapted By Jacob Thomas. Original may be found at https://github.com/adafruit/Adafruit_Python_BNO055
 
-import logging
-import sys
 import time
 import os
 
@@ -36,10 +34,6 @@ class Data_aq():
 
         # Clear the terminal initially.
         os.system('cls' if os.name == 'nt' else 'clear')
-
-        # Enable verbose debug logging if -v is passed as a parameter.
-        if len(os.system.argv) == 2 and os.system.argv[1].lower() == '-v':
-            logging.basicConfig(level=logging.DEBUG)
 
         # Initialize the BNO055 and stop if something went wrong.
         if not bno.begin():
