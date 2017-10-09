@@ -47,6 +47,8 @@ class Csvparser():
 
             timedifference = (d_time - s_time) / 1000 #put it in seconds
 
+
+            #vf = vi + at
             vf_x = s_accelx * timedifference
             vf_y = s_accely * timedifference
             vf_z = s_accelz * timedifference
@@ -59,49 +61,23 @@ class Csvparser():
 
             print("x distance: " + str(dx) + " y distance: " + str(dy) + " z distance: " + str(dz))
 
-            #update recursive values for the next iteration
-
-            ref_x = dx
-            ref_y = dy
-            ref_z = dz
-
-            d_time = s_time
-            d_yaw = s_yaw
-            d_roll = s_roll
-            d_pitch = s_pitch
-            d_accelx = s_accelx
-            d_accely = s_accely
-            d_accelz = s_accelz
-
-            vf_x = s_accelx * timedifference
-            vf_y = s_accely * timedifference
-            vf_z = s_accelz * timedifference
-
-            print("x velocity: " + str(vf_x) + " y velocity: " + str(vf_y) + " z velocity: " + str(vf_z))
-
-            dx = (vf_x * timedifference) + ref_x
-            dy = (vf_y * timedifference) + ref_y
-            dz = (vf_z * timedifference) + ref_z
-
-            print("x distance: " + str(dx) + " y distance: " + str(dy) + " z distance: " + str(dz))
-
             #Write points to another CSV file
 
             writefile.write(str(dx) + "," + str(dy) + "," + str(dz) + "\n")
 
             #update recursive values for the next iteration
 
-            ref_x = dx + ref_x
-            ref_y = dy + ref_y
-            ref_z = dz + ref_z
+            ref_x = dx
+            ref_y = dy
+            ref_z = dz
 
-            d_time = s_time
-            d_yaw = s_yaw
-            d_roll = s_roll
-            d_pitch = s_pitch
-            d_accelx = s_accelx
-            d_accely = s_accely
-            d_accelz = s_accelz
+            s_time = d_time
+            s_yaw = d_yaw
+            s_roll = d_roll
+            s_pitch = d_pitch
+            s_accelx = d_accelx
+            s_accely = d_accely
+            s_accelz = d_accelz
 
 
 
