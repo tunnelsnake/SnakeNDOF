@@ -5,12 +5,12 @@ class Receivefile():
 
     def __init__(self, outputpath='logs/rawdata.csv'):
 
-        PORT = 8080
-        HOST = "192.168.0.104"
+        port = 8080
+        host = "192.168.0.104"
 
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((HOST, PORT))
+            s.connect((host, port))
         except ConnectionError:
             print("Connection Failed.")
             exit(1)
@@ -24,7 +24,7 @@ class Receivefile():
                 f.close()
                 break
         s.close()
-        print("File Received")
+        print("File Received from " + host)
         exit(0)
 
 r = Receivefile()

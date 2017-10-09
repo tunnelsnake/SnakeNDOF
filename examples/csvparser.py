@@ -79,4 +79,3 @@ class csvparser():
         return retlist
 
 
-csv = Csvparser("Data_Log.csv")

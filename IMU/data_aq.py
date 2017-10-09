@@ -141,4 +141,3 @@ class Data_aq():
         input("Press a key to Exit...")
         exit(0)
 
-d = Data_aq()

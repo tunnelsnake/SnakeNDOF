@@ -29,6 +29,5 @@ class Sendfile():
 
         f.close()
         conn.close()
-        print("File Sent Successfully.")
+        print("File Sent To " + host + " Successfully.")
 
-s = Sendfile()

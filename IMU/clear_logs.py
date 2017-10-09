@@ -2,7 +2,7 @@
 
 class Clear_logs():
 
-    def __init__(self, rawdata=False, pointdata=False, additionalfile=''):
+    def __init__(self, rawdata=True, pointdata=True, additionalfile=''):
 
         if rawdata == True:
             try:
