@@ -2,11 +2,24 @@ import receivefile
 import data_parser
 import clear_logs
 import data_plot
+from multiprocessing import process
+import os
 
-c = clear_logs.Clear_logs()
 
-input("Press A Key To Begin Data Reception")
+def plot():
+    plot = data_plot.Data_plot()
 
-rf = receivefile.Receivefile()
-dp = data_parser.Data_parser()
-plot = data_plot.Data_plot()
+
+while True:
+
+    c = clear_logs.Clear_logs()
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    input("Press A Key To Begin Data Reception")
+
+    rf = receivefile.Receivefile()
+    dp = data_parser.Data_parser()
+    p = process(Target=plot)
+    input("Plot in Progress. Press Any Key to restart...")
+    p.terminate()
+
