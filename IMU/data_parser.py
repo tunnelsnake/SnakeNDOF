@@ -2,7 +2,7 @@ __author__ = "Jacob Thomas"
 
 #This file takes the output of data_aq.py and spits out point data to another csv file
 
-class Dataparser():
+class Data_parser():
 
     def __init__(self, inputfile="logs/rawdata.csv", outputfile="logs/pointdata.csv"):
 
