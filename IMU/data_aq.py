@@ -133,5 +133,4 @@ class Data_aq():
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Data Acquisition Completed.")
         input("Press a key to Exit...")
-        exit(0)
 
