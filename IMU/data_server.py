@@ -5,14 +5,15 @@ import time
 import os
 
 
-os.system('cls' if os.name == 'nt' else 'clear')
-
 while True:
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print("[1] - The Whole Shebang")
     print("[2] - Send rawdata.csv")
     print("[3] - Clear the Logs")
     print("[4] - Exit")
-    inp = input("\nDefault : [0] \n Data Server>")
+    inp = input("\nDefault : [0] \nData Server>")
 
     if inp == '1':
         c = clear_logs.Clear_logs()
