@@ -78,7 +78,7 @@ class Data_aq():
                 time.sleep(.25)
 
         # Magnetometer Calibration
-        print("Gyroscope Calibration Complete. Magnetometer Calibration Beginning... \n")
+        print("Gyroscope Calibration Complete.\nBeginning Magnetometer Calibration . ")
         while True:
             sys, gyro, accel, mag = bno.get_calibration_status()
             if mag == 3:
@@ -87,8 +87,8 @@ class Data_aq():
                 time.sleep(.25)
 
         # Accelerometer Calibration
-        print("Magnetometer Calibration Complete. Accelerometer Calibration Beginning... \n")
-        print("Move Sensor at 45 Degree Angles\n")
+        print("Magnetometer Calibration Complete.\nBeginning Accelerometer Calibration.")
+        print("Move Sensor at 45 Degree Angles")
         while True:
             sys, gyro, accel, mag = bno.get_calibration_status()
             if accel == 3:
@@ -96,7 +96,7 @@ class Data_aq():
             else:
                 time.sleep(.25)
 
-        print("Calibration Complete. Awaiting System Confirmation... \n")
+        print("Calibrations Complete.\nAwaiting System Confirmation.")
         while True:
             sys, gyro, accel, mag = bno.get_calibration_status()
             if sys == 3:

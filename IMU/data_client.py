@@ -4,11 +4,13 @@ import clear_logs
 import data_plot
 from multiprocessing import process
 import os
+import time
 
 
-def plot():
-    plot = data_plot.Data_plot()
-
+def create_plot():
+    while True:
+        print("test")
+        time.sleep(4)
 
 while True:
 
@@ -19,7 +21,9 @@ while True:
 
     rf = receivefile.Receivefile()
     dp = data_parser.Data_parser()
-    p = process(Target=plot)
+    p = process(Target=create_plot)
+    p.start()
+    p.join()
     input("Plot in Progress. Press Any Key to restart...")
     p.terminate()
 
