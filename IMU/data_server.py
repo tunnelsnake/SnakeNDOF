@@ -19,12 +19,15 @@ while True:
         c = clear_logs.Clear_logs()
         d = data_aq.Data_aq()
         s = sendfile.Sendfile()
+        time.sleep(2)
 
     elif inp == '2':
         s = sendfile.Sendfile()
+        time.sleep(2)
 
     elif inp == '3':
         c = clear_logs.Clear_logs()
+        time.sleep(2)
 
     elif inp == '4':
         exit(0)
@@ -33,6 +36,7 @@ while True:
         c = clear_logs.Clear_logs()
         d = data_aq.Data_aq()
         s = sendfile.Sendfile()
+        time.sleep(2)
 
     else:
         print("Invalid Option")
