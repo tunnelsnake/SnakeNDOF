@@ -23,7 +23,7 @@ while True:
     pointstr = f.readline()
 
 
-ax1.scatter(x, y, z)
+ax1.plot_wireframe(x, y, z)
 
 ax1.set_xlabel("X")
 ax1.set_ylabel("Y")

@@ -1,6 +1,3 @@
-# Simple Adafruit BNO055 sensor reading example.  Will print the orientation
-# and calibration data every second.
-#
 # Copyright (c) 2015 Adafruit Industries
 # Author: Tony DiCola
 #
@@ -13,7 +10,8 @@
 #
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-
+#
+# Code Adapted By Jacob Thomas. Original may be found at https://github.com/adafruit/Adafruit_Python_BNO055
 
 import logging
 import sys
@@ -29,8 +27,10 @@ from Adafruit_BNO055 import BNO055
 bno = BNO055.BNO055(serial_port='/dev/ttyAMA0', rst=18)
 # BeagleBone Black configuration with default I2C connection (SCL=P9_19, SDA=P9_20),
 # and RST connected to pin P9_12:
-#bno = BNO055.BNO055(rst='P9_12')
+# bno = BNO055.BNO055(rst='P9_12')
 
+# Clear the terminal initially.
+os.system('cls' if os.name == 'nt' else 'clear')
 
 # Enable verbose debug logging if -v is passed as a parameter.
 if len(sys.argv) == 2 and sys.argv[1].lower() == '-v':
@@ -58,7 +58,7 @@ print('Magnetometer ID:    0x{0:02X}'.format(mag))
 print('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 
 
-f = open("Data_Log.csv", "a")
+f = open("rawdata.csv", "a")
 
 print("\n")
 input("Press a Key to Begin Calibration...\n")
@@ -68,7 +68,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 print("Starting Calibration... \n")
 print("Place Sensor on Table for Gyroscope Calibration... \n")
 
-#Gyroscope Calibration
+# Gyroscope Calibration
 while True:
     sys, gyro, accel, mag = bno.get_calibration_status()
     if gyro == 3:
@@ -76,21 +76,21 @@ while True:
     else:
         time.sleep(.25)
 
-#Accelerometer Calibration
+# Magnetometer Calibration
+print("Accelerometer Calibration Complete. Magnetometer Calibration Beginning... \n")
+while True:
+    sys, gyro, accel, mag = bno.get_calibration_status()
+    if mag == 3:
+        break
+    else:
+        time.sleep(.25)
+
+# Accelerometer Calibration
 print("Gyroscope Calibration Complete. Accelerometer Calibration Beginning... \n")
 print("Move Sensor at 45 Degree Angles\n")
 while True:
     sys, gyro, accel, mag = bno.get_calibration_status()
     if accel == 3:
-        break
-    else:
-        time.sleep(.25)
-
-#Magnetometer Calibration
-print("Accelerometer Calibration Complete. Magnetometer Calibration Beginning... \n")
-while True:
-    sys, gyro, accel, mag = bno.get_calibration_status()
-    if mag == 3:
         break
     else:
         time.sleep(.25)
@@ -103,8 +103,9 @@ while True:
     else:
         time.sleep(.25)
 
-data_time = input("How many seconds of Data Acquisition? \n")
 os.system('cls' if os.name == 'nt' else 'clear')
+
+data_time = input("How many seconds of Data Acquisition? \n")
 input("Press a Key to Begin Acquisition...")
 
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -112,31 +113,14 @@ os.system('cls' if os.name == 'nt' else 'clear')
 print('Reading BNO055 data for ' + data_time + " Seconds...")
 start_time = time.time() * 1000
 while True:
+
     # Read the Euler angles for heading, roll, pitch (all in degrees).
     heading, roll, pitch = bno.read_euler()
     # Read the calibration status, 0=uncalibrated and 3=fully calibrated.
     sys, gyro, accel, mag = bno.get_calibration_status()
-    # Print everything out.
-    #print('Heading={0:0.2F} Roll={1:0.2F} Pitch={2:0.2F}\tSys_cal={3} Gyro_cal={4} Accel_cal={5} Mag_cal={6}'.format(
-     #     heading, roll, pitch, sys, gyro, accel, mag))
-    # Other values you can optionally read:
-    # Orientation as a quaternion:
-    #x,y,z,w = bno.read_quaterion()
-    # Sensor temperature in degrees Celsius:
-    #temp_c = bno.read_temp()
-    # Magnetometer data (in micro-Teslas):
-    #x,y,z = bno.read_magnetometer()
-    # Gyroscope data (in degrees per second):
-    #x,y,z = bno.read_gyroscope()
-    #Accelerometer data (in meters per second squared):
+
+    # Read linear Acceleration data
     accel_x,accel_y,accel_z = bno.read_linear_acceleration()
-    # Linear acceleration data (i.e. acceleration from movement, not gravity--
-    # returned in meters per second squared):
-    #x,y,z = bno.read_linear_acceleration()
-    # Gravity acceleration data (i.e. acceleration just from gravity--returned
-    # in meters per second squared):
-    #x,y,z = bno.read_gravity()
-    # Sleep for a second until the next reading.
 
     #Append data to CSV file
     t = time.asctime()
@@ -144,7 +128,7 @@ while True:
     f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," +  str(sys) + "," + str(gyro) + "," + str(accel) + "," + str(mag) + "\n")
     if(((time.time() * 1000) - start_time) >= float(data_time) * 1000):
         break
-    #time.sleep(.25)
+
 os.system('cls' if os.name == 'nt' else 'clear')
 print("Data Acquisition Completed.")
 input("Press a key to Exit...")

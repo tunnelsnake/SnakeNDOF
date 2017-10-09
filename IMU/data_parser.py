@@ -2,13 +2,24 @@ __author__ = "Jacob Thomas"
 
 #This file takes the output of data_aq.py and spits out point data to another csv file
 
-class csvparser():
+class Dataparser():
 
-    def __init__(self, inputfile="rawdata.csv", outputfile="pointdata.csv"):
+    def __init__(self, inputfile="/logs/rawdata.csv", outputfile="/logs/pointdata.csv"):
 
-        readfile = open(inputfile, "r")
-        writefile = open(outputfile, "w").close() #clear out the Point Data file
-        writefile = open(outputfile, "a")
+        try:
+            readfile = open(inputfile, "r")
+        except IOError:
+            print("An Error Occurred Opening " + inputfile + " for Reading")
+
+        try:
+            writefile = open(outputfile, "w").close() #clear out the Point Data file
+        except IOError:
+            print("An Error Occurred Opening " + outputfile + " for Clearing")
+
+        try:
+            writefile = open(outputfile, "a")
+        except:
+            print("An Error Occurred Opening " + outputfile + " for Writing")
 
         line = self.parseline(readfile.readline())
 
@@ -77,6 +88,3 @@ class csvparser():
         line = line.replace("\n", "")
         retlist = line.split(",")
         return retlist
-
-
-csv = Csvparser("Data_Log.csv")
