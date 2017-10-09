@@ -5,7 +5,7 @@ class Sendfile():
     def __init__(self, inputfile="/logs/rawdata.csv"):
 
         port = 8080
-        host = '192.168.0.111'
+        host = '192.168.0.104'
 
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
