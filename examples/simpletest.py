@@ -109,7 +109,8 @@ while True:
     else:
         time.sleep(.25)
 
-input("Press a Key to Begin Data Acquisition...")
+data_time = input("How many seconds of Data Acquisition?")
+input("Press a Key to begin Acquisition")
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -146,4 +147,5 @@ while True:
     t = time.asctime()
     t = (time.time() * 1000) - start_time
     f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," +  str(sys) + "," + str(gyro) + "," + str(accel) + "," + str(mag) + "\n")
+    data_time - start_time <= 0
     #time.sleep(.25)
