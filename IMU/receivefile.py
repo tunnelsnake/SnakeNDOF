@@ -26,3 +26,5 @@ class Receivefile():
         socket.close()
         print("File Received")
         exit(0)
+
+r = Receivefile()

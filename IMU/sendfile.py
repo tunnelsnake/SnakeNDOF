@@ -1,32 +1,35 @@
-import os
 import socket
 
 class Sendfile():
 
-    def __init__(self, file="/logs/rawdata.csv"):
+    def __init__(self, inputfile="/logs/rawdata.csv"):
 
-        PORT = 8080
-        HOST = '192.168.0.111'
+        port = 8080
+        host = '192.168.0.111'
 
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.bind((HOST,PORT))
+            s.bind((host,port))
             s.listen(1)
             conn, addr = s.accept()
         except ConnectionError:
             print("Connection Error: File not Sent.")
             exit(1)
 
-        fileToSend = open(file, 'rb')
+        try:
+            f = open(inputfile, 'rb')
+        except IOError:
+            print("An Error Occurred Reading the File.")
         while True:
-            data = fileToSend.readline()
+            data = f.readline()
             if data:
                 conn.send(data)
             else:
                 break
 
-
-        fileToSend.close()
+        f.close()
         conn.sendall('')
         conn.close()
         print("File Sent Successfully.")
+
+s = Sendfile()

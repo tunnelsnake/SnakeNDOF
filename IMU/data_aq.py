@@ -140,3 +140,5 @@ class Data_aq():
         print("Data Acquisition Completed.")
         input("Press a key to Exit...")
         exit(0)
+
+d = Data_aq()
