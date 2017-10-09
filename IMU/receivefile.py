@@ -3,7 +3,7 @@ import socket
 
 class Receivefile():
 
-    def __init__(self, outputpath='/logs/rawdata.csv'):
+    def __init__(self, outputpath='logs/rawdata.csv'):
 
         PORT = 8080
         HOST = "192.168.0.104"

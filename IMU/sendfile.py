@@ -2,7 +2,7 @@ import socket
 
 class Sendfile():
 
-    def __init__(self, inputfile="/logs/rawdata.csv"):
+    def __init__(self, inputfile="logs/rawdata.csv"):
 
         port = 8080
         host = '192.168.0.104'
