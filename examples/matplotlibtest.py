@@ -4,11 +4,26 @@ from mpl_toolkits.mplot3d import axes3d
 fig = plt.figure()
 ax1 = fig.add_subplot(111, projection='3d')
 
-x = [1,2,3,4,5,6,7,8,9]
-y = [1,2,3,4,5,6,7,8,9]
-z = [1,2,3,4,5,6,7,8,9]
+f = open("PData.txt", "r")
 
-ax1.plot_wireframe(x,y,z)
+x = list("")
+y = list("")
+z = list("")
+
+
+pointstr = f.readline()
+while True:
+    pointlist = str.split(pointstr, ",")
+    if pointlist[0] == "":
+        break
+    x.append(float(pointlist[0]))
+    y.append(float(pointlist[1]))
+    z.append(float(pointlist[2]))
+
+    pointstr = f.readline()
+
+
+ax1.scatter(x, y, z)
 
 ax1.set_xlabel("X")
 ax1.set_ylabel("Y")
