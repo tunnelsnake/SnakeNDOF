@@ -38,7 +38,7 @@ class Data_aq():
         os.system('cls' if os.name == 'nt' else 'clear')
 
         # Enable verbose debug logging if -v is passed as a parameter.
-        if len(sys.argv) == 2 and sys.argv[1].lower() == '-v':
+        if len(os.system.argv) == 2 and os.system.argv[1].lower() == '-v':
             logging.basicConfig(level=logging.DEBUG)
 
         # Initialize the BNO055 and stop if something went wrong.
