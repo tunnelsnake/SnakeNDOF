@@ -4,7 +4,7 @@ from mpl_toolkits.mplot3d import axes3d
 
 class Data_plot():
 
-    def __init__(self, file):
+    def __init__(self, file="logs/pointdata.csv"):
 
         fig = plt.figure()
         ax1 = fig.add_subplot(111, projection='3d')

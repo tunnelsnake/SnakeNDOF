@@ -24,7 +24,7 @@ from Adafruit_BNO055 import BNO055
 class Data_aq():
 
 
-    def __init__(self, file="/logs/rawdata.csv"):
+    def __init__(self, file="logs/rawdata.csv"):
 
         # Create and configure the BNO sensor connection.  Make sure only ONE of the
         # below 'bno = ...' lines is uncommented:

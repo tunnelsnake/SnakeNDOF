@@ -4,7 +4,7 @@ __author__ = "Jacob Thomas"
 
 class Dataparser():
 
-    def __init__(self, inputfile="/logs/rawdata.csv", outputfile="/logs/pointdata.csv"):
+    def __init__(self, inputfile="logs/rawdata.csv", outputfile="logs/pointdata.csv"):
 
         try:
             readfile = open(inputfile, "r")

@@ -17,13 +17,13 @@ class Receivefile():
 
         f = open(outputpath, "wb")
         while True:
-            data = socket.recv(1024)
+            data = s.recv(1024)
             if  data:
                 f.write(data)
             else:
                 f.close()
                 break
-        socket.close()
+        s.close()
         print("File Received")
         exit(0)
 
