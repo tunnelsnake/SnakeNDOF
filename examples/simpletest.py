@@ -72,7 +72,7 @@ input("Press a Key to Begin Calibration...\n")
 os.system('cls' if os.name == 'nt' else 'clear')
 
 print("Starting Calibration... \n")
-print("Place Sensor on Table for Gyroscope Calibration \n")
+print("Place Sensor on Table for Gyroscope Calibration... \n")
 
 #Gyroscope Calibration
 while True:
@@ -83,7 +83,7 @@ while True:
         time.sleep(.25)
 
 #Accelerometer Calibration
-print("Gyro Calibration Complete. Accelerometer Calibration Beginning... \n")
+print("Gyroscope Calibration Complete. Accelerometer Calibration Beginning... \n")
 print("Move Sensor at 45 Degree Angles\n")
 while True:
     sys, gyro, accel, mag = bno.get_calibration_status()
@@ -109,12 +109,13 @@ while True:
     else:
         time.sleep(.25)
 
-data_time = input("How many seconds of Data Acquisition?")
-input("Press a Key to begin Acquisition")
+data_time = input("How many seconds of Data Acquisition? \n")
+os.system('cls' if os.name == 'nt' else 'clear')
+input("Press a Key to Begin Acquisition...")
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-print('Reading BNO055 data, press Ctrl-C to quit...')
+print('Reading BNO055 data for ' + data_time + " Seconds...")
 start_time = time.time() * 1000
 while True:
     # Read the Euler angles for heading, roll, pitch (all in degrees).
@@ -147,9 +148,10 @@ while True:
     t = time.asctime()
     t = (time.time() * 1000) - start_time
     f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," +  str(sys) + "," + str(gyro) + "," + str(accel) + "," + str(mag) + "\n")
-    if(data_time * 1000 - start_time <= 0):
+    if(float(data_time) * 1000 - start_time <= 0):
         break
     #time.sleep(.25)
+os.system('cls' if os.name == 'nt' else 'clear')
 print("Data Acquisition Completed.")
 input("Press A key to Exit...")
 exit(0)
