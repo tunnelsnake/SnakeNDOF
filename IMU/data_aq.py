@@ -57,7 +57,7 @@ class Data_aq():
         print('Gyroscope ID:       0x{0:02X}\n'.format(gyro))
 
         try:
-            f = open("rawdata.csv", "a")
+            f = open("logs/rawdata.csv", "a")
         except IOError:
             print("Error Opening " + file + " for Writing")
 
@@ -78,7 +78,7 @@ class Data_aq():
                 time.sleep(.25)
 
         # Magnetometer Calibration
-        print("Accelerometer Calibration Complete. Magnetometer Calibration Beginning... \n")
+        print("Gyroscope Calibration Complete. Magnetometer Calibration Beginning... \n")
         while True:
             sys, gyro, accel, mag = bno.get_calibration_status()
             if mag == 3:
@@ -87,7 +87,7 @@ class Data_aq():
                 time.sleep(.25)
 
         # Accelerometer Calibration
-        print("Gyroscope Calibration Complete. Accelerometer Calibration Beginning... \n")
+        print("Magnetometer Calibration Complete. Accelerometer Calibration Beginning... \n")
         print("Move Sensor at 45 Degree Angles\n")
         while True:
             sys, gyro, accel, mag = bno.get_calibration_status()
