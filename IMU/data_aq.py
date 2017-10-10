@@ -78,7 +78,7 @@ class Data_aq():
                 time.sleep(.25)
 
         # Magnetometer Calibration
-        print("Gyroscope Calibration Complete.\nBeginning Magnetometer Calibration . ")
+        print("Gyroscope Calibration Complete.\nBeginning Magnetometer Calibration. ")
         while True:
             sys, gyro, accel, mag = bno.get_calibration_status()
             if mag == 3:

@@ -4,7 +4,7 @@ __author__ = "Jacob Thomas"
 
 class Data_parser():
 
-    def __init__(self, inputfile="logs/rawdata.csv", outputfile="logs/pointdata.csv"):
+    def __init__(self, verbose=False, inputfile="logs/rawdata.csv", outputfile="logs/pointdata.csv"):
 
         try:
             readfile = open(inputfile, "r")
@@ -23,6 +23,10 @@ class Data_parser():
 
         line = self.parseline(readfile.readline())
 
+        if(line == ''):
+            print("Data File is Empty!")
+            exit(1)
+
         # This is setting the first set of values that will determine the first reference point
 
         s_time = int(float(line[0]))
@@ -39,6 +43,7 @@ class Data_parser():
 
         while True:
             line = self.parseline(readfile.readline())
+
 
             if line[0] == '':
                 break
@@ -58,13 +63,13 @@ class Data_parser():
             vf_y = s_accely * timedifference
             vf_z = s_accelz * timedifference
 
-            print("x velocity: " + str(vf_x) + " y velocity: " + str(vf_y) + " z velocity: " + str(vf_z))
+            if verbose: print("x velocity: " + str(vf_x) + " y velocity: " + str(vf_y) + " z velocity: " + str(vf_z))
 
             dx = (.5 * vf_x * timedifference) + ref_x
             dy = (.5 * vf_y * timedifference) + ref_y
             dz = (.5 * vf_z * timedifference) + ref_z
 
-            print("x distance: " + str(dx) + " y distance: " + str(dy) + " z distance: " + str(dz))
+            if verbose: print("x distance: " + str(dx) + " y distance: " + str(dy) + " z distance: " + str(dz))
 
             #Write points to another CSV file
 
