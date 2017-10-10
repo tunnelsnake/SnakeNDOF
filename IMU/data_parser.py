@@ -78,6 +78,7 @@ class Data_parser():
             #WRITE PURE ACCELERATION DATA
             #writefile.write(str(s_accelx) + "," + str(s_accely) + "," + str(s_accelz) + "\n")
 
+
             # update recursive values for the next iteration
 
             ref_x = dx

@@ -124,7 +124,7 @@ class Data_aq():
             #accel_x,accel_y,accel_z = bno.read_linear_acceleration()
 
             #Read full acceleration data (with gravity)
-            accel_x, accel_y, accel_z = bno.read_accelerometer()
+            accel_x, accel_y, accel_z = bno.read_linear_acceleration()
 
             #Append data to CSV file
             t = time.asctime()
@@ -134,6 +134,5 @@ class Data_aq():
                 break
 
         os.system('cls' if os.name == 'nt' else 'clear')
-        print("Data Acquisition Completed.")
-        input("Press a key to Exit...")
+
 
