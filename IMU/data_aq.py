@@ -121,7 +121,10 @@ class Data_aq():
             sys, gyro, accel, mag = bno.get_calibration_status()
 
             # Read linear Acceleration data
-            accel_x,accel_y,accel_z = bno.read_linear_acceleration()
+            #accel_x,accel_y,accel_z = bno.read_linear_acceleration()
+
+            #Read full acceleration data (with gravity)
+            accel_x, accel_y, accel_z = bno.read_accelerometer()
 
             #Append data to CSV file
             t = time.asctime()

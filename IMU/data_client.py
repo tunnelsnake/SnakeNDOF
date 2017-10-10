@@ -38,10 +38,12 @@ def debugloop():
 
 
 while True:
+
     print("[1] - Start Debug Loop")
     print("[2] - Download rawdata.csv")
     print("[3] - Graph Current Data")
-    print("[4] - Exit")
+    print("[4] - Parse Current Data")
+    print("[5] - Exit")
     inp = input("Default : [1]\nData Client>")
 
     if inp == '1' or inp == '':
@@ -60,6 +62,12 @@ while True:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     elif inp == '4':
+        dp = data_parser.Data_parser()
+        print("Data Parsed.")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+    elif inp == '5':
         os.system('cls' if os.name == 'nt' else 'clear')
         exit(0)
 

@@ -29,7 +29,7 @@ class Data_parser():
 
         # This is setting the first set of values that will determine the first reference point
 
-        s_time = int(float(line[0]))
+        s_time = float(line[0])
         s_yaw = float(line[1])
         s_roll = float(line[2])
         s_pitch = float(line[3])
@@ -63,17 +63,20 @@ class Data_parser():
             vf_y = s_accely * timedifference
             vf_z = s_accelz * timedifference
 
-            if verbose: print("x velocity: " + str(vf_x) + " y velocity: " + str(vf_y) + " z velocity: " + str(vf_z))
+            if verbose: print("x velocity: " + str(vf_x) + " y velocity: " + str(vf_y) + " z velocity: " + str(vf_z) + "\n")
 
             dx = (.5 * vf_x * timedifference) + ref_x
             dy = (.5 * vf_y * timedifference) + ref_y
             dz = (.5 * vf_z * timedifference) + ref_z
 
-            if verbose: print("x distance: " + str(dx) + " y distance: " + str(dy) + " z distance: " + str(dz))
+            if verbose: print("x distance: " + str(dx) + " y distance: " + str(dy) + " z distance: " + str(dz) + "\n")
 
             #Write points to another CSV file
 
             writefile.write(str(dx) + "," + str(dy) + "," + str(dz) + "\n")
+
+            #WRITE PURE ACCELERATION DATA
+            #writefile.write(str(s_accelx) + "," + str(s_accely) + "," + str(s_accelz) + "\n")
 
             # update recursive values for the next iteration
 
