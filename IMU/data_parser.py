@@ -58,16 +58,17 @@ class Data_parser():
 
             timedifference = (d_time - s_time) / 1000 #put it in seconds
 
-            #vf = vi + at
+            #vf = vi + at but vi is zero because I don't really know what it is...
             vf_x = s_accelx * timedifference
             vf_y = s_accely * timedifference
             vf_z = s_accelz * timedifference
 
             if verbose: print("x velocity: " + str(vf_x) + " y velocity: " + str(vf_y) + " z velocity: " + str(vf_z) + "\n")
 
-            dx = (.5 * vf_x * timedifference) + ref_x
-            dy = (.5 * vf_y * timedifference) + ref_y
-            dz = (.5 * vf_z * timedifference) + ref_z
+            #d = vi * t + .5a * t^2 but vi is again 0 so basically .5a * t^2
+            dx = (.5 * vf_x * (timedifference * timedifference)) + ref_x
+            dy = (.5 * vf_y * (timedifference * timedifference)) + ref_y
+            dz = (.5 * vf_z * (timedifference*timedifference)) + ref_z
 
             if verbose: print("x distance: " + str(dx) + " y distance: " + str(dy) + " z distance: " + str(dz) + "\n")
 

@@ -41,12 +41,13 @@ while True:
 
     print("[1] - Start Debug Loop")
     print("[2] - Download rawdata.csv")
-    print("[3] - Graph Current Data")
+    print("[3] - Parse And Graph Current Data")
     print("[4] - Parse Current Data")
-    print("[5] - Exit")
-    inp = input("Default : [1]\nData Client>")
+    print("[5] - Graph Current Data")
+    print("[6] - Exit")
+    inp = input("\nData Client>")
 
-    if inp == '1' or inp == '':
+    if inp == '1':
         debugloop()
 
     elif inp == '2':
@@ -57,9 +58,11 @@ while True:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     elif inp == '3':
-        create_plot()
-        time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
+        dp = data_parser.Data_parser()
+        print("Data Parsed")
+        time.sleep(2)
+        plot = data_plot.Data_plot()
 
     elif inp == '4':
         dp = data_parser.Data_parser()
@@ -68,8 +71,17 @@ while True:
         os.system('cls' if os.name == 'nt' else 'clear')
 
     elif inp == '5':
+        create_plot()
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+
+    elif inp == '6':
         os.system('cls' if os.name == 'nt' else 'clear')
         exit(0)
+
+    elif inp == '':
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     else:
         print("Invalid Choice")
