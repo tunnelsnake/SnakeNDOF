@@ -1,9 +1,5 @@
 from multiprocessing import Process
 
-import receivefile
-import data_parser
-import clear_logs
-import data_plot
 import os
 import time
 import socket
@@ -13,15 +9,12 @@ port = "8080"
 
 logfile = "logs/rawdata.csv"
 
-def create_plot():
-    scatter = data_plot.Data_plot()
-
 
 def requestdata(seconds):
     if 0 < int(seconds) < 30:
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((host, port))
+        s.connect((host, int(port)))
 
         conn, addr = s.accept()
         data = conn.recv(1024)
@@ -47,29 +40,6 @@ def requestdata(seconds):
         print("Sensors Uncalibrated!")
 
 
-def debugloop():
-
-    proc_spawned = False
-
-    while True:
-
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-        print("Waiting for File.")
-
-        # sleep for a second, because on repeat the logs will clear too fast for the new plot
-        time.sleep(1)
-
-        c = clear_logs.Clear_logs(False)
-        rf = receivefile.Receivefile()
-
-        if proc_spawned: p.terminate()
-        dp = data_parser.Data_parser()
-
-        p = Process(target=create_plot, args='')
-        p.start()
-        proc_spawned = True
-
 
 
 while True:
@@ -82,41 +52,16 @@ while True:
     print("[6] - Exit")
     inp = input("\nData Client>")
 
-    if inp == '1':
-        debugloop()
 
-    elif inp == '2':
+
+    if inp == '2':
         os.system('cls' if os.name == 'nt' else 'clear')
         seconds = input("How Many Seconds")
         requestdata(seconds)
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    elif inp == '3':
-        os.system('cls' if os.name == 'nt' else 'clear')
-        dp = data_parser.Data_parser()
-        print("Data Parsed")
-        time.sleep(2)
-        plot = data_plot.Data_plot()
 
-    elif inp == '4':
-        dp = data_parser.Data_parser()
-        print("Data Parsed.")
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-    elif inp == '5':
-        create_plot()
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-
-    elif inp == '6':
-        os.system('cls' if os.name == 'nt' else 'clear')
-        exit(0)
-
-    elif inp == '':
-        os.system('cls' if os.name == 'nt' else 'clear')
 
     else:
         print("Invalid Choice")

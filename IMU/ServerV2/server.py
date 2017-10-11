@@ -26,10 +26,12 @@ class Server():
             s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             s.bind((self.host, self.port))
             s.listen(1)
+            print("Socket Bound.")
 
             conn, addr = s.accept()
             self.active_connection = True
             sys, gyro, accel, mag = bno.get_calibration_status()
+            print("Connection Active. Sending Calibration Data.")
 
             # send all four calibrations right in a row
             conn.send(sys + gyro + accel + mag)
@@ -137,6 +139,9 @@ class Server():
             else:
                 time.sleep(.25)
 
+        print("System Confirmed.")
+        time.sleep(.25)
+
         while True:
             p = Process(target=self.startlistener, args=(bno,))
 
@@ -197,7 +202,7 @@ class Server():
                             self.collect_data = False
                             self.active_connection = False
                 else:
-                    time.sleep(1)
+                    pass
 
 
 
