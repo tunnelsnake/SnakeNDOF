@@ -12,6 +12,7 @@ class Server():
     host = "192.168.0.104"
     port = "8080"
 
+    active_connection = False
     collect_data = False
     collection_time = 0 #in seconds
     kill_proc = False
@@ -27,6 +28,7 @@ class Server():
             s.listen(1)
 
             conn, addr = s.accept()
+            self.active_connection = True
             sys, gyro, accel, mag = bno.get_calibration_status()
 
             # send all four calibrations right in a row
@@ -139,56 +141,63 @@ class Server():
             p = Process(target=self.startlistener, args=(bno,))
 
             while True:
-
-                if(self.kill_proc == True):
-                    p.terminate()
-                    self.collection_time = 0
-                    self.kill_proc = False
-                    self.collect_data = False
-
-                elif self.collect_data == True and self.collection_time > 0:
-
-                    start_time = time.time() * 1000 #milliseconds
-                    f = open(self.logfile, "w") #file object
+                if(self.active_connection):
 
                     while True:
 
-                        # Read the Euler angles for heading, roll, pitch (all in degrees).
-                        heading, roll, pitch = bno.read_euler()
-                        # Read the calibration status, 0=uncalibrated and 3=fully calibrated.
-                        sys, gyro, accel, mag = bno.get_calibration_status()
+                        if(self.kill_proc == True):
+                            p.terminate()
+                            self.collection_time = 0
+                            self.kill_proc = False
+                            self.collect_data = False
+                            self.active_connection = False
 
-                        # Read linear Acceleration data
-                        # accel_x,accel_y,accel_z = bno.read_linear_acceleration()
+                        elif self.collect_data == True and self.collection_time > 0:
 
-                        # Read full acceleration data (with gravity)
-                        accel_x, accel_y, accel_z = bno.read_linear_acceleration()
+                            start_time = time.time() * 1000 #milliseconds
+                            f = open(self.logfile, "w") #file object
 
-                        # Append data to CSV file
-                        t = time.asctime()
-                        t = (time.time() * 1000) - start_time
-                        f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(
-                            accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," + str(sys) + "," + str(
-                            gyro) + "," + str(accel) + "," + str(mag) + "\n")
-                        if (((time.time() * 1000) - start_time) >= float(self.collection_time) * 1000):
-                            break
+                            while True:
 
-                        #down and dirty way to give the other thread time to do its thing.
-                        self.collect_data = False
+                                # Read the Euler angles for heading, roll, pitch (all in degrees).
+                                heading, roll, pitch = bno.read_euler()
+                                # Read the calibration status, 0=uncalibrated and 3=fully calibrated.
+                                sys, gyro, accel, mag = bno.get_calibration_status()
 
-                        time.sleep(5)
-                        p.terminate()
+                                # Read linear Acceleration data
+                                # accel_x,accel_y,accel_z = bno.read_linear_acceleration()
 
-                        self.kill_proc = False
-                        self.collection_time = 0
-                        p.terminate()
+                                # Read full acceleration data (with gravity)
+                                accel_x, accel_y, accel_z = bno.read_linear_acceleration()
+
+                                # Append data to CSV file
+                                t = time.asctime()
+                                t = (time.time() * 1000) - start_time
+                                f.write(str(t) + "," + str(heading) + "," + str(roll) + "," + str(pitch) + "," + str(
+                                    accel_x) + "," + str(accel_y) + "," + str(accel_z) + "," + str(sys) + "," + str(
+                                    gyro) + "," + str(accel) + "," + str(mag) + "\n")
+                                if (((time.time() * 1000) - start_time) >= float(self.collection_time) * 1000):
+                                    break
+
+                                #down and dirty way to give the other thread time to do its thing.
+                                self.collect_data = False
+
+                                time.sleep(5)
+                                p.terminate()
+
+                                self.kill_proc = False
+                                self.collection_time = 0
+                                self.active_connection = False
 
 
+                        else:
+                            p.terminate()
+                            self.collection_time = 0
+                            self.kill_proc = False
+                            self.collect_data = False
+                            self.active_connection = False
                 else:
-                    p.terminate()
-                    self.collection_time = 0
-                    self.kill_proc = False
-                    self.collect_data = False
+                    time.sleep(1)
 
 
 
