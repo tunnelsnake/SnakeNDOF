@@ -193,4 +193,4 @@ class Server():
 
 
 
-s = Server.Server()
+s = Server()
