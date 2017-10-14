@@ -4,12 +4,14 @@ import receivefile
 import data_parser
 import clear_logs
 import data_plot
+import euler_transform
 import os
 import time
 
 
-def create_plot():
-    scatter = data_plot.Data_plot()
+def create_plot(file="logs/pointdata.csv"):
+    scatter = data_plot.Data_plot(file)
+
 
 
 def debugloop():
@@ -39,34 +41,49 @@ def debugloop():
 
 while True:
 
-    print("[1] - Start Debug Loop")
-    print("[2] - Download rawdata.csv")
-    print("[3] - Parse And Graph Current Data")
-    print("[4] - Parse Current Data")
-    print("[5] - Graph Current Data")
-    print("[6] - Exit")
+    print("[1] - Download Raw Data")
+    print("[2] - Parse, Transform, and Graph Current Data")
+    print("[3] - Parse Current Data")
+    print("[4] - Transform Current Data")
+    print("[5] - Graph Raw Data")
+    print("[6] - Graph Transformed Data")
+    print("[7] - Debug Loop (Deprecated)")
+    print("[8] - Exit")
     inp = input("\nData Client>")
 
     if inp == '1':
-        debugloop()
-
-    elif inp == '2':
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Waiting for File.")
         rf = receivefile.Receivefile()
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    elif inp == '3':
+    elif inp == '2':
         os.system('cls' if os.name == 'nt' else 'clear')
         dp = data_parser.Data_parser()
-        print("Data Parsed")
+        print("Data Parsed.")
+        x = input("X Rotation (Degrees): ")
+        y = input("Y Rotation (Degrees): ")
+        z = input("Z Rotation (Degrees): ")
+        euler = euler_transform.Euler_transform(x, y, z)
+        print("Data Transformed.")
         time.sleep(2)
-        plot = data_plot.Data_plot()
+        plot = data_plot.Data_plot("logs/matrixdata.csv")
 
-    elif inp == '4':
+    elif inp == '3':
         dp = data_parser.Data_parser()
         print("Data Parsed.")
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+    elif inp == '4':
+        os.system('cls' if os.name == 'nt' else 'clear')
+        x = input("X Rotation (Degrees): ")
+        y = input("Y Rotation (Degrees): ")
+        z = input("Z Rotation (Degrees): ")
+        dp = data_parser.Data_parser()
+        euler = euler_transform.Euler_transform(x, y ,z)
+        print("Data Transformed.")
         time.sleep(2)
         os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -77,6 +94,15 @@ while True:
 
 
     elif inp == '6':
+        create_plot("logs/matrixdata.csv")
+        os.system('cls' if os.name == 'nt' else 'clear')
+        time.sleep(2)
+
+    elif inp == '7':
+        os.system('cls' if os.name == 'nt' else 'clear')
+        debugloop()
+
+    elif inp == '8':
         os.system('cls' if os.name == 'nt' else 'clear')
         exit(0)
 

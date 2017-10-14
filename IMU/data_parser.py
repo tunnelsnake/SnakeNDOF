@@ -1,5 +1,7 @@
 __author__ = "Jacob Thomas"
 
+import euler_transform as euler
+
 #This file takes the output of data_aq.py and spits out point data to another csv file
 
 class Data_parser():
@@ -41,12 +43,21 @@ class Data_parser():
         ref_y = 0
         ref_z = 0
 
+        # The rotations in degrees
+        rotation_x = 30
+        rotation_y = 0
+        rotation_z = 0
+
         while True:
             line = self.parseline(readfile.readline())
 
 
             if line[0] == '':
                 break
+
+            dx = 0
+            dy = 0
+            dz = 0
 
             d_time = float(line[0])
             d_yaw = float(line[1])
@@ -69,6 +80,8 @@ class Data_parser():
             dx = (.5 * vf_x * (timedifference * timedifference)) + ref_x
             dy = (.5 * vf_y * (timedifference * timedifference)) + ref_y
             dz = (.5 * vf_z * (timedifference*timedifference)) + ref_z
+
+            #dx, dy, dz = euler.Euler_transform().apply_matrix(dx, dy, dz, 0, 0, 0)
 
             if verbose: print("x distance: " + str(dx) + " y distance: " + str(dy) + " z distance: " + str(dz) + "\n")
 

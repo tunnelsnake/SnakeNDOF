@@ -14,7 +14,12 @@ def requestdata(seconds):
     if 0 < int(seconds) < 30:
 
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.connect((host, int(port)))
+        while True:
+            try:
+                s.connect((host, int(port)))
+                break
+            except ConnectionError:
+                pass
 
         conn, addr = s.accept()
         data = conn.recv(1024)
